@@ -17,15 +17,14 @@ const NavBar = ({ user }) => {
                 <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-
                 <div className="navbar-nav ">
                     {!user && (
                         <React.Fragment>
                             <NavLink className="nav-item nav-link" to="/login"> Login   </NavLink>
+                            <NavLink className="nav-item nav-link" to="/register"> Register</NavLink>
 
                         </React.Fragment>)
                     }
-
 
                     {user && (
                         <React.Fragment>
@@ -47,11 +46,11 @@ const NavBar = ({ user }) => {
 
             <div className="navbar-nav  navbar-nav-right">
 
-                {
+                {user && (
                     <React.Fragment>
                         <MyBugetComponent />
                     </React.Fragment>
-                }
+                )}
             </div>
         </nav>
     );

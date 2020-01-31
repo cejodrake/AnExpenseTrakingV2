@@ -19,7 +19,7 @@ export function getCurrentUser() {
 
 
 export async function login(email, password) {
-    console.log(email, password)
+
     const { data: jwt } = await http.post(apiEndPoint, { email, password });
     localStorage.setItem(tokenKey, jwt);
 }
