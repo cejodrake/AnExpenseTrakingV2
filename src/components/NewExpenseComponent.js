@@ -5,13 +5,11 @@ import { getAllCategories, getUrlAllCategories } from '../services/categorieServ
 import { getAllExpenses, saveExpense } from '../services/ExpensesServices';
 import CaruselExpense from './common/caruselExpense';
 
-import Joi from 'joi';
-
-
 import useDropdown from './common/useDropDown';
 import useInput from './common/useInput';
 import useButton from './common/useButton';
 import Input from './common/Input';
+import ReportComponent from "./ReportComponent";
 
 
 
@@ -25,15 +23,15 @@ const NewExpenseComponent = ({ user }) => {
     const [categories, CategoriasDropDown] = useDropdown("Categories", "Baliadas", allCategories)
     const [allExpenses, setAllExpense] = useState([]);
 
+    const [startDateReport, StarDateReporttInput] = useInput("Date Start", Date.now().toLocaleString(), "date");
+    const [EndDateReport, EndDatetReportInput] = useInput("Date End", Date.now().toLocaleString(), "date");
+
     /* const [{ data, loading, error }, refetch] = useAxios(
          getUrlAllCategories()
      );*/
 
 
-    const allExpense = async () => {
-        const result = await getAllExpenses();
-        setAllExpense(result.data);
-    }
+
 
     const allData = async () => {
         const res = await getAllCategories();
@@ -48,14 +46,14 @@ const NewExpenseComponent = ({ user }) => {
             "categorieId": categories,
             "total": total,
             "comments": comment,
-            "email": "j_calix2002@hotmail.com"
+            "email": user.email
         };
 
         console.log(details);
 
         try {
-            //    await saveExpense(expense);
-            toast.info(" se autentico con exito ")
+            await saveExpense(expense);
+
         } catch (error) {
             if (error.response && error.response.status === 400) {
 
@@ -67,8 +65,6 @@ const NewExpenseComponent = ({ user }) => {
 
     useEffect(() => {
         allData();
-        allExpense();
-
     }, [])
 
 
@@ -81,6 +77,7 @@ const NewExpenseComponent = ({ user }) => {
                         doSubmit();
                     }}>
                         <StarDatetInput />
+
                         <Input
                             name="Expense Monto  "
                             id="expense"
@@ -101,9 +98,11 @@ const NewExpenseComponent = ({ user }) => {
 
                     </form>
                 </Col>
-                <Col>
+
+                <Col >
+
                     <div className="Carousel">
-                        <CaruselExpense />
+                        <ReportComponent />
 
                     </div>
 

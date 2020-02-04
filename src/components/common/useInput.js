@@ -6,9 +6,7 @@ const useInput = (label, defaultState, type) => {
     const [state, setState] = useState(defaultState);
 
     const id = `use-input-${label.replace(" ", "").toLowerCase()}`;
-    const handleChange = (e) => {
-        setState(e.target.value);
-    }
+
     const Input = () => (
 
         <div className="form-group">
@@ -17,15 +15,11 @@ const useInput = (label, defaultState, type) => {
                 <input
                     id={id}
                     value={state}
-                    onChange={handleChange}
-                    onBlur={handleChange}
+                    onChange={e => setState(e.target.value)}
+                    onBlur={e => setState(e.target.value)}
                     className="form-control"
                     type={type}
                 />
-
-
-
-
             </label>
         </div>
 
