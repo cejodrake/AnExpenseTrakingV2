@@ -4,15 +4,15 @@ const Footer = () => {
 
     return (
 
-        <footer class="mainfooter" role="contentinfo">
-            <div class="footer-middle">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-3 col-sm-6">
+        <footer className="mainfooter" role="contentinfo">
+            <div className="footer-middle">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-3 col-sm-6">
 
-                            <div class="footer-pad">
+                            <div className="footer-pad">
                                 <h4>Information in Ours Company</h4>
-                                <ul class="list-unstyled">
+                                <ul className="list-unstyled">
                                     <li><a href="#"></a></li>
                                     <li><a href="#">Payment Information  Center</a></li>
                                     <li><a href="#">Contact Directory</a></li>
@@ -21,11 +21,11 @@ const Footer = () => {
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-6">
+                        <div className="col-md-3 col-sm-6">
 
-                            <div class="footer-pad">
+                            <div className="footer-pad">
                                 <h4>Codes</h4>
-                                <ul class="list-unstyled">
+                                <ul className="list-unstyled">
                                     <li><a href="#">Tutorial</a></li>
                                     <li><a href="#">Youtube Training </a></li>
                                     <li><a href="#">Email</a></li>
@@ -36,17 +36,17 @@ const Footer = () => {
                             </div>
                         </div>
 
-                        <div class="col-md-3">
+                        <div className="col-md-3">
                             <h4>Follow Us</h4>
-                            <ul class="social-network social-circle">
-                                <li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+                            <ul className="social-network social-circle">
+                                <li><a href="#" className="icoFacebook" title="Facebook"><i className="fa fa-facebook"></i></a></li>
+                                <li><a href="#" className="icoLinkedin" title="Linkedin"><i className="fa fa-linkedin"></i></a></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12 copy">
-                            <p class="text-center">&copy; Copyright 2020 - Company DaYaSa .  All rights reserved.</p>
+                    <div className="row">
+                        <div className="col-md-12 copy">
+                            <p className="text-center">&copy; Copyright 2020 - Company DaYaSa .  All rights reserved.</p>
                         </div>
                     </div>
 

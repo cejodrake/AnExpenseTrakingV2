@@ -10,3 +10,8 @@ export function getAllCategories() {
 export function getUrlAllCategories() {
     return apiEndPoint;
 }
+
+export default {
+    getAllCategories,
+
+}

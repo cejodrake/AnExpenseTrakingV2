@@ -15,6 +15,7 @@ const RegisterComponent = () => {
     const [errors, setErrors] = useState();
 
     const [spinner, showSpinner, hideSpinner] = useSpinner();
+
     const doSubmit = async () => {
 
         const infoNewUser = addUser(email, password, name);

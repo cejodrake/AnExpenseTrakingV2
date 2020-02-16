@@ -53838,6 +53838,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getAllCategories = getAllCategories;
 exports.getUrlAllCategories = getUrlAllCategories;
+exports.default = void 0;
 
 var _httpServices = _interopRequireDefault(require("./httpServices"));
 
@@ -53852,6 +53853,11 @@ function getAllCategories() {
 function getUrlAllCategories() {
   return apiEndPoint;
 }
+
+var _default = {
+  getAllCategories
+};
+exports.default = _default;
 },{"./httpServices":"services/httpServices.js"}],"services/ExpensesServices.js":[function(require,module,exports) {
 "use strict";
 
@@ -53859,8 +53865,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.getAllExpenses = getAllExpenses;
-exports.getExpenseForDate = getExpenseForDate;
-exports.getExpensesForFilter = getExpensesForFilter;
 exports.saveExpense = saveExpense;
 
 var _httpServices = _interopRequireDefault(require("./httpServices"));
@@ -53873,128 +53877,12 @@ function getAllExpenses() {
   return _httpServices.default.get(apiEndPoint);
 }
 
-function getExpenseForDate(starDate, endDate) {
-  return _httpServices.default.post(apiEndPoint);
-}
-
-function getExpensesForFilter(startDate, endDate, email) {
-  return _httpServices.default.post(apiEndPoint, {
-    dateInitial: startDate,
-    dateEnd: endDate,
-    email: email
-  });
-}
-
-;
-
 function saveExpense(expense) {
   return _httpServices.default.post(apiEndPoint, expense);
 }
 
 ;
-},{"./httpServices":"services/httpServices.js"}],"components/common/useInput.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _core = require("@emotion/core");
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-const useInput = (label, defaultState, type) => {
-  const [state, setState] = (0, _react.useState)(defaultState);
-  const id = `use-input-${label.replace(" ", "").toLowerCase()}`;
-
-  const Input = () => (0, _core.jsx)("div", {
-    className: "form-group"
-  }, (0, _core.jsx)("label", {
-    htmlFor: id
-  }, label, (0, _core.jsx)("input", {
-    id: id,
-    value: state,
-    onChange: e => setState(e.target.value),
-    onBlur: e => setState(e.target.value),
-    className: "form-control",
-    type: type
-  })));
-
-  return [state, Input, setState];
-};
-
-var _default = useInput;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","@emotion/core":"../node_modules/@emotion/core/dist/core.browser.esm.js"}],"components/img/goydo1.png":[function(require,module,exports) {
-module.exports = "/goydo1.21f7b24e.png";
-},{}],"components/img/goydo2.png":[function(require,module,exports) {
-module.exports = "/goydo2.e6a0efac.png";
-},{}],"components/img/goydo3.png":[function(require,module,exports) {
-module.exports = "/goydo3.bb3d519f.png";
-},{}],"components/common/caruselExpense.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _reactBootstrap = require("react-bootstrap");
-
-var _useInput = _interopRequireDefault(require("./useInput"));
-
-var _goydo = _interopRequireDefault(require("../img/goydo1.png"));
-
-var _goydo2 = _interopRequireDefault(require("../img/goydo2.png"));
-
-var _goydo3 = _interopRequireDefault(require("../img/goydo3.png"));
-
-var _core = require("@emotion/core");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-const CaruselExpense = () => {
-  const [index, setIndex] = (0, _react.useState)(0);
-  const [direction, setDirection] = (0, _react.useState)(null);
-
-  const handleSelect = (selectedIndex, e) => {
-    setIndex(selectedIndex);
-    setDirection(e.direction);
-  };
-
-  return (0, _core.jsx)(_reactBootstrap.Carousel, {
-    activeIndex: index,
-    direction: direction,
-    onSelect: handleSelect
-  }, (0, _core.jsx)(_reactBootstrap.Carousel.Item, null, (0, _core.jsx)("img", {
-    className: "d-block w-100",
-    src: _goydo.default,
-    alt: "First slide"
-  }), (0, _core.jsx)(_reactBootstrap.Carousel.Caption, null)), (0, _core.jsx)(_reactBootstrap.Carousel.Item, null, (0, _core.jsx)("img", {
-    className: "d-block w-100",
-    src: _goydo2.default,
-    alt: "Second slide"
-  }), (0, _core.jsx)(_reactBootstrap.Carousel.Caption, null)), (0, _core.jsx)(_reactBootstrap.Carousel.Item, null, (0, _core.jsx)("img", {
-    className: "d-block w-100",
-    src: _goydo3.default,
-    alt: "Third slide"
-  }), (0, _core.jsx)(_reactBootstrap.Carousel.Caption, null)));
-};
-
-var _default = CaruselExpense;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./useInput":"components/common/useInput.js","../img/goydo1.png":"components/img/goydo1.png","../img/goydo2.png":"components/img/goydo2.png","../img/goydo3.png":"components/img/goydo3.png","@emotion/core":"../node_modules/@emotion/core/dist/core.browser.esm.js"}],"components/common/useDropDown.js":[function(require,module,exports) {
+},{"./httpServices":"services/httpServices.js"}],"components/common/useDropDown.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -54014,21 +53902,18 @@ const useDropdown = (label, defaultState, options) => {
   const [state, setState] = (0, _react.useState)(defaultState);
   const id = `use-dropdown-${label.replace(" ", "").toLowerCase()}`;
 
-  const Dropdown = () => (0, _core.jsx)("div", {
-    className: "form-group"
-  }, (0, _core.jsx)("label", {
+  const Dropdown = () => (0, _core.jsx)("label", {
     htmlFor: id
-  }, label, (0, _core.jsx)("select", {
+  }, (0, _core.jsx)("select", {
     id: id,
     value: state,
     onChange: e => setState(e.target.value),
-    onBlur: e => setState(e.target.value),
-    disabled: options.length === 0,
-    className: "form-control"
+    onBlur: e => setState(e.target.value) // disabled={options.length === 0}
+
   }, (0, _core.jsx)("option", null, "All"), options.map(item => (0, _core.jsx)("option", {
     key: item._id,
     value: item._id
-  }, item.name)))));
+  }, item.name))));
 
   return [state, Dropdown, setState];
 };
@@ -54108,527 +53993,35 @@ const Input = ({
 
 var _default = Input;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","@emotion/core":"../node_modules/@emotion/core/dist/core.browser.esm.js"}],"components/ReportComponent.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","@emotion/core":"../node_modules/@emotion/core/dist/core.browser.esm.js"}],"services/reportService.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _reactBootstrap = require("react-bootstrap");
-
-var _useButton = _interopRequireDefault(require("./common/useButton"));
-
-var _ExpensesServices = require("./../services/ExpensesServices");
-
-var _core = require("@emotion/core");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-const ReportComponent = ({
-  user
-}) => {
-  const [startDateReport, setStartDateReport] = (0, _react.useState)(Date.now());
-  const [endDateReport, setEndDateReport] = (0, _react.useState)(Date.now());
-  const [expenses, setExpenses] = (0, _react.useState)();
-  const [buttonFilter, ButtonFilterData] = (0, _useButton.default)("Filter", "", "submit");
-
-  const getExpenseForDate = async () => {
-    const result = (0, _ExpensesServices.getExpensesForFilter)(startDateReport, endDateReport);
-    setExpenses(result.data);
-  };
-
-  const doSubmit = async () => {
-    console.log("funtionando ");
-
-    try {
-      const result = await getExpenseForDate();
-      console.log(result);
-    } catch (error) {
-      if (error.response && error.response.status === 400) {}
-    }
-  };
-
-  return (0, _core.jsx)("div", {
-    className: "Report"
-  }, (0, _core.jsx)("form", {
-    onSubmit: e => {
-      e.preventDefault();
-      doSubmit();
-    }
-  }, (0, _core.jsx)("div", {
-    className: "container"
-  }, (0, _core.jsx)(_reactBootstrap.Row, null, (0, _core.jsx)(_reactBootstrap.Col, null, (0, _core.jsx)("div", {
-    className: "form-group"
-  }, (0, _core.jsx)("label", null, "Start Date"), (0, _core.jsx)("input", {
-    name: "startDate",
-    id: "startDate",
-    className: "form-control",
-    onChange: e => setStartDateReport(e.target.value),
-    type: "date"
-  }))), (0, _core.jsx)(_reactBootstrap.Col, null, (0, _core.jsx)("div", {
-    className: "form-group"
-  }, (0, _core.jsx)("label", null, "End Date"), (0, _core.jsx)("input", {
-    name: "endDate",
-    id: "endDate",
-    className: "form-control",
-    onChange: e => setEndDateReport(e.target.value),
-    type: "date"
-  }))), (0, _core.jsx)(_reactBootstrap.Col, null, (0, _core.jsx)("div", null, (0, _core.jsx)("button", {
-    className: "btn btn-primary",
-    type: "submit"
-  }, " Save ")))), (0, _core.jsx)(_reactBootstrap.Row, null, (0, _core.jsx)("table", {
-    className: "table"
-  }, (0, _core.jsx)("thead", null, (0, _core.jsx)("tr", null, (0, _core.jsx)("th", {
-    scope: "col"
-  }, "Date"), (0, _core.jsx)("th", {
-    scope: "col"
-  }, "Categorie"), (0, _core.jsx)("th", {
-    scope: "col"
-  }, "Total"), (0, _core.jsx)("th", {
-    scope: "col"
-  }, "Comment"))), (0, _core.jsx)("tbody", null))))));
-};
-
-var _default = ReportComponent;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./common/useButton":"components/common/useButton.js","./../services/ExpensesServices":"services/ExpensesServices.js","@emotion/core":"../node_modules/@emotion/core/dist/core.browser.esm.js"}],"components/NewExpenseComponent.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _reactBootstrap = require("react-bootstrap");
-
-var _categorieService = require("../services/categorieService");
-
-var _ExpensesServices = require("../services/ExpensesServices");
-
-var _caruselExpense = _interopRequireDefault(require("./common/caruselExpense"));
-
-var _useDropDown = _interopRequireDefault(require("./common/useDropDown"));
-
-var _useInput = _interopRequireDefault(require("./common/useInput"));
-
-var _useButton = _interopRequireDefault(require("./common/useButton"));
-
-var _Input = _interopRequireDefault(require("./common/Input"));
-
-var _ReportComponent = _interopRequireDefault(require("./ReportComponent"));
-
-var _core = require("@emotion/core");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-const NewExpenseComponent = ({
-  user
-}) => {
-  const [allCategories, setallCategories] = (0, _react.useState)([]);
-  const [startDate, StarDatetInput] = (0, _useInput.default)("Date", Date.now().toLocaleString(), "date");
-  const [total, setTotal] = (0, _react.useState)(0);
-  const [comment, setComment] = (0, _react.useState)("");
-  const [buttonSave, SaveButton] = (0, _useButton.default)("Save", "");
-  const [categories, CategoriasDropDown] = (0, _useDropDown.default)("Categories", "Baliadas", allCategories);
-  const [allExpenses, setAllExpense] = (0, _react.useState)([]);
-  const [startDateReport, StarDateReporttInput] = (0, _useInput.default)("Date Start", Date.now().toLocaleString(), "date");
-  const [EndDateReport, EndDatetReportInput] = (0, _useInput.default)("Date End", Date.now().toLocaleString(), "date");
-  /* const [{ data, loading, error }, refetch] = useAxios(
-       getUrlAllCategories()
-   );*/
-
-  const allData = async () => {
-    const res = await (0, _categorieService.getAllCategories)();
-    setallCategories(res.data);
-  };
-
-  const doSubmit = async () => {
-    const expense = {
-      "date": startDate,
-      "categorieId": categories,
-      "total": total,
-      "comments": comment,
-      "email": user.email
-    };
-    console.log(details);
-
-    try {
-      await (0, _ExpensesServices.saveExpense)(expense);
-    } catch (error) {
-      if (error.response && error.response.status === 400) {
-        console.log(error);
-      }
-    }
-  };
-
-  (0, _react.useEffect)(() => {
-    allData();
-  }, []);
-  return (0, _core.jsx)(_reactBootstrap.Container, null, (0, _core.jsx)(_reactBootstrap.Row, null, (0, _core.jsx)(_reactBootstrap.Col, null, (0, _core.jsx)("form", {
-    className: "form",
-    onSubmit: e => {
-      e.preventDefault();
-      doSubmit();
-    }
-  }, (0, _core.jsx)(StarDatetInput, null), (0, _core.jsx)(_Input.default, {
-    name: "Expense Monto  ",
-    id: "expense",
-    value: total,
-    className: "form-control",
-    onChange: e => setTotal(e.target.value)
-  }), (0, _core.jsx)(_Input.default, {
-    name: "comment",
-    id: "comment",
-    value: comment,
-    className: "form-control",
-    type: "text",
-    onChange: e => setComment(e.target.value)
-  }), (0, _core.jsx)(CategoriasDropDown, null), (0, _core.jsx)(SaveButton, null))), (0, _core.jsx)(_reactBootstrap.Col, null, (0, _core.jsx)("div", {
-    className: "Carousel"
-  }, (0, _core.jsx)(_ReportComponent.default, null)))));
-};
-
-function useFormInput(initialState) {
-  const [value, setValue] = (0, _react.useState)(initialState);
-
-  const handleChange = e => {
-    setValue(e.target.value);
-  };
-
-  return {
-    value,
-    onChange: handleChange
-  };
-}
-
-var _default = NewExpenseComponent;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","../services/categorieService":"services/categorieService.js","../services/ExpensesServices":"services/ExpensesServices.js","./common/caruselExpense":"components/common/caruselExpense.js","./common/useDropDown":"components/common/useDropDown.js","./common/useInput":"components/common/useInput.js","./common/useButton":"components/common/useButton.js","./common/Input":"components/common/Input.js","./ReportComponent":"components/ReportComponent.js","@emotion/core":"../node_modules/@emotion/core/dist/core.browser.esm.js"}],"config.json":[function(require,module,exports) {
-module.exports = {
-  "apiUrl": "http://localhost:3000/api"
-};
-},{}],"../node_modules/jwt-decode/lib/atob.js":[function(require,module,exports) {
-/**
- * The code was extracted from:
- * https://github.com/davidchambers/Base64.js
- */
-
-var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
-
-function InvalidCharacterError(message) {
-  this.message = message;
-}
-
-InvalidCharacterError.prototype = new Error();
-InvalidCharacterError.prototype.name = 'InvalidCharacterError';
-
-function polyfill (input) {
-  var str = String(input).replace(/=+$/, '');
-  if (str.length % 4 == 1) {
-    throw new InvalidCharacterError("'atob' failed: The string to be decoded is not correctly encoded.");
-  }
-  for (
-    // initialize result and counters
-    var bc = 0, bs, buffer, idx = 0, output = '';
-    // get next character
-    buffer = str.charAt(idx++);
-    // character found in table? initialize bit storage and add its ascii value;
-    ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer,
-      // and if not first of each 4 characters,
-      // convert the first 8 bits to one ascii character
-      bc++ % 4) ? output += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0
-  ) {
-    // try to find character in table (0-63, not found => -1)
-    buffer = chars.indexOf(buffer);
-  }
-  return output;
-}
-
-
-module.exports = typeof window !== 'undefined' && window.atob && window.atob.bind(window) || polyfill;
-
-},{}],"../node_modules/jwt-decode/lib/base64_url_decode.js":[function(require,module,exports) {
-var atob = require('./atob');
-
-function b64DecodeUnicode(str) {
-  return decodeURIComponent(atob(str).replace(/(.)/g, function (m, p) {
-    var code = p.charCodeAt(0).toString(16).toUpperCase();
-    if (code.length < 2) {
-      code = '0' + code;
-    }
-    return '%' + code;
-  }));
-}
-
-module.exports = function(str) {
-  var output = str.replace(/-/g, "+").replace(/_/g, "/");
-  switch (output.length % 4) {
-    case 0:
-      break;
-    case 2:
-      output += "==";
-      break;
-    case 3:
-      output += "=";
-      break;
-    default:
-      throw "Illegal base64url string!";
-  }
-
-  try{
-    return b64DecodeUnicode(output);
-  } catch (err) {
-    return atob(output);
-  }
-};
-
-},{"./atob":"../node_modules/jwt-decode/lib/atob.js"}],"../node_modules/jwt-decode/lib/index.js":[function(require,module,exports) {
-'use strict';
-
-var base64_url_decode = require('./base64_url_decode');
-
-function InvalidTokenError(message) {
-  this.message = message;
-}
-
-InvalidTokenError.prototype = new Error();
-InvalidTokenError.prototype.name = 'InvalidTokenError';
-
-module.exports = function (token,options) {
-  if (typeof token !== 'string') {
-    throw new InvalidTokenError('Invalid token specified');
-  }
-
-  options = options || {};
-  var pos = options.header === true ? 0 : 1;
-  try {
-    return JSON.parse(base64_url_decode(token.split('.')[pos]));
-  } catch (e) {
-    throw new InvalidTokenError('Invalid token specified: ' + e.message);
-  }
-};
-
-module.exports.InvalidTokenError = InvalidTokenError;
-
-},{"./base64_url_decode":"../node_modules/jwt-decode/lib/base64_url_decode.js"}],"services/authService.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getCurrentUser = getCurrentUser;
-exports.login = login;
+exports.getExpensesForFilter = getExpensesForFilter;
 exports.default = void 0;
 
 var _httpServices = _interopRequireDefault(require("./httpServices"));
 
-var _config = require("../config.json");
-
-var _jwtDecode = _interopRequireDefault(require("jwt-decode"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const apiEndPoint = _config.apiUrl + '/auth'; //const apiEndPoint = '/auth';
+const apiEndPoint = 'http://localhost:3000/api/report'; //const apiEndPoint = '/report';
 
-const tokenKey = "token";
-
-function getCurrentUser() {
-  try {
-    const jwt = localStorage.getItem(tokenKey);
-    return (0, _jwtDecode.default)(jwt);
-  } catch (error) {
-    return null;
-  }
-}
-
-async function login(email, password) {
-  const {
-    data: jwt
-  } = await _httpServices.default.post(apiEndPoint, {
-    email,
-    password
+function getExpensesForFilter(startDate, endDate, email) {
+  return _httpServices.default.post(apiEndPoint, {
+    dateInitial: startDate,
+    dateEnd: endDate,
+    email: email
   });
-  localStorage.setItem(tokenKey, jwt);
 }
 
-function logout() {
-  localStorage.removeItem(tokenKey);
-}
-
+;
 var _default = {
-  login,
-  logout,
-  getCurrentUser
+  getExpensesForFilter
 };
 exports.default = _default;
-},{"./httpServices":"services/httpServices.js","../config.json":"config.json","jwt-decode":"../node_modules/jwt-decode/lib/index.js"}],"components/LogoutComponent.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _authService = _interopRequireDefault(require("../services/authService"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-const LogoutComponent = () => {
-  (0, _react.useEffect)(() => {
-    _authService.default.logout();
-
-    window.location = "/";
-  }, []);
-  return null;
-};
-
-var _default = LogoutComponent;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","../services/authService":"services/authService.js"}],"components/common/barSocialNetwork.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _core = require("@emotion/core");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const BarSocialNetWork = () => {
-  return (0, _core.jsx)("div", null, (0, _core.jsx)("footer", {
-    className: "footer"
-  }, (0, _core.jsx)("div", {
-    className: "icon-bar"
-  }, (0, _core.jsx)("a", {
-    href: "#",
-    className: "facebook"
-  }, (0, _core.jsx)("i", {
-    className: "fa fa-facebook"
-  })), (0, _core.jsx)("a", {
-    href: "#",
-    className: "twitter"
-  }, (0, _core.jsx)("i", {
-    className: "fa fa-twitter"
-  })), (0, _core.jsx)("a", {
-    href: "#",
-    className: "linkedin"
-  }, (0, _core.jsx)("i", {
-    className: "fa fa-linkedin"
-  })))));
-};
-
-var _default = BarSocialNetWork;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","@emotion/core":"../node_modules/@emotion/core/dist/core.browser.esm.js"}],"components/common/footer.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _core = require("@emotion/core");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const Footer = () => {
-  return (0, _core.jsx)("footer", {
-    class: "mainfooter",
-    role: "contentinfo"
-  }, (0, _core.jsx)("div", {
-    class: "footer-middle"
-  }, (0, _core.jsx)("div", {
-    class: "container"
-  }, (0, _core.jsx)("div", {
-    class: "row"
-  }, (0, _core.jsx)("div", {
-    class: "col-md-3 col-sm-6"
-  }, (0, _core.jsx)("div", {
-    class: "footer-pad"
-  }, (0, _core.jsx)("h4", null, "Information in Ours Company"), (0, _core.jsx)("ul", {
-    class: "list-unstyled"
-  }, (0, _core.jsx)("li", null, (0, _core.jsx)("a", {
-    href: "#"
-  })), (0, _core.jsx)("li", null, (0, _core.jsx)("a", {
-    href: "#"
-  }, "Payment Information  Center")), (0, _core.jsx)("li", null, (0, _core.jsx)("a", {
-    href: "#"
-  }, "Contact Directory")), (0, _core.jsx)("li", null, (0, _core.jsx)("a", {
-    href: "#"
-  }, "News and Updates")), (0, _core.jsx)("li", null, (0, _core.jsx)("a", {
-    href: "#"
-  }, "FAQs"))))), (0, _core.jsx)("div", {
-    class: "col-md-3 col-sm-6"
-  }, (0, _core.jsx)("div", {
-    class: "footer-pad"
-  }, (0, _core.jsx)("h4", null, "Codes"), (0, _core.jsx)("ul", {
-    class: "list-unstyled"
-  }, (0, _core.jsx)("li", null, (0, _core.jsx)("a", {
-    href: "#"
-  }, "Tutorial")), (0, _core.jsx)("li", null, (0, _core.jsx)("a", {
-    href: "#"
-  }, "Youtube Training ")), (0, _core.jsx)("li", null, (0, _core.jsx)("a", {
-    href: "#"
-  }, "Email")), (0, _core.jsx)("li", null, (0, _core.jsx)("a", {
-    href: "#"
-  }, "Privacy Policy")), (0, _core.jsx)("li", null, (0, _core.jsx)("a", {
-    href: "#"
-  }, "FAQs")), (0, _core.jsx)("li", null, (0, _core.jsx)("a", {
-    href: "#"
-  }, "Webmaster"))))), (0, _core.jsx)("div", {
-    class: "col-md-3"
-  }, (0, _core.jsx)("h4", null, "Follow Us"), (0, _core.jsx)("ul", {
-    class: "social-network social-circle"
-  }, (0, _core.jsx)("li", null, (0, _core.jsx)("a", {
-    href: "#",
-    class: "icoFacebook",
-    title: "Facebook"
-  }, (0, _core.jsx)("i", {
-    class: "fa fa-facebook"
-  }))), (0, _core.jsx)("li", null, (0, _core.jsx)("a", {
-    href: "#",
-    class: "icoLinkedin",
-    title: "Linkedin"
-  }, (0, _core.jsx)("i", {
-    class: "fa fa-linkedin"
-  })))))), (0, _core.jsx)("div", {
-    class: "row"
-  }, (0, _core.jsx)("div", {
-    class: "col-md-12 copy"
-  }, (0, _core.jsx)("p", {
-    class: "text-center"
-  }, "\xA9 Copyright 2020 - Company DaYaSa .  All rights reserved."))))));
-};
-
-var _default = Footer;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","@emotion/core":"../node_modules/@emotion/core/dist/core.browser.esm.js"}],"../node_modules/react-transition-group/esm/CSSTransition.js":[function(require,module,exports) {
+},{"./httpServices":"services/httpServices.js"}],"../node_modules/react-transition-group/esm/CSSTransition.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -57087,7 +56480,632 @@ eventManager.on(ACTION.DID_MOUNT, function (containerInstance) {
     document.body.removeChild(containerDomNode);
   }
 });
-},{"@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","@babel/runtime/helpers/esm/inheritsLoose":"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","classnames":"../node_modules/classnames/index.js","react-transition-group":"../node_modules/react-transition-group/esm/index.js","react-dom":"../node_modules/react-dom/index.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","@babel/runtime/helpers/esm/inheritsLoose":"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","classnames":"../node_modules/classnames/index.js","react-transition-group":"../node_modules/react-transition-group/esm/index.js","react-dom":"../node_modules/react-dom/index.js"}],"config.json":[function(require,module,exports) {
+module.exports = {
+  "apiUrl": "http://localhost:3000/api"
+};
+},{}],"../node_modules/jwt-decode/lib/atob.js":[function(require,module,exports) {
+/**
+ * The code was extracted from:
+ * https://github.com/davidchambers/Base64.js
+ */
+
+var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+
+function InvalidCharacterError(message) {
+  this.message = message;
+}
+
+InvalidCharacterError.prototype = new Error();
+InvalidCharacterError.prototype.name = 'InvalidCharacterError';
+
+function polyfill (input) {
+  var str = String(input).replace(/=+$/, '');
+  if (str.length % 4 == 1) {
+    throw new InvalidCharacterError("'atob' failed: The string to be decoded is not correctly encoded.");
+  }
+  for (
+    // initialize result and counters
+    var bc = 0, bs, buffer, idx = 0, output = '';
+    // get next character
+    buffer = str.charAt(idx++);
+    // character found in table? initialize bit storage and add its ascii value;
+    ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer,
+      // and if not first of each 4 characters,
+      // convert the first 8 bits to one ascii character
+      bc++ % 4) ? output += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0
+  ) {
+    // try to find character in table (0-63, not found => -1)
+    buffer = chars.indexOf(buffer);
+  }
+  return output;
+}
+
+
+module.exports = typeof window !== 'undefined' && window.atob && window.atob.bind(window) || polyfill;
+
+},{}],"../node_modules/jwt-decode/lib/base64_url_decode.js":[function(require,module,exports) {
+var atob = require('./atob');
+
+function b64DecodeUnicode(str) {
+  return decodeURIComponent(atob(str).replace(/(.)/g, function (m, p) {
+    var code = p.charCodeAt(0).toString(16).toUpperCase();
+    if (code.length < 2) {
+      code = '0' + code;
+    }
+    return '%' + code;
+  }));
+}
+
+module.exports = function(str) {
+  var output = str.replace(/-/g, "+").replace(/_/g, "/");
+  switch (output.length % 4) {
+    case 0:
+      break;
+    case 2:
+      output += "==";
+      break;
+    case 3:
+      output += "=";
+      break;
+    default:
+      throw "Illegal base64url string!";
+  }
+
+  try{
+    return b64DecodeUnicode(output);
+  } catch (err) {
+    return atob(output);
+  }
+};
+
+},{"./atob":"../node_modules/jwt-decode/lib/atob.js"}],"../node_modules/jwt-decode/lib/index.js":[function(require,module,exports) {
+'use strict';
+
+var base64_url_decode = require('./base64_url_decode');
+
+function InvalidTokenError(message) {
+  this.message = message;
+}
+
+InvalidTokenError.prototype = new Error();
+InvalidTokenError.prototype.name = 'InvalidTokenError';
+
+module.exports = function (token,options) {
+  if (typeof token !== 'string') {
+    throw new InvalidTokenError('Invalid token specified');
+  }
+
+  options = options || {};
+  var pos = options.header === true ? 0 : 1;
+  try {
+    return JSON.parse(base64_url_decode(token.split('.')[pos]));
+  } catch (e) {
+    throw new InvalidTokenError('Invalid token specified: ' + e.message);
+  }
+};
+
+module.exports.InvalidTokenError = InvalidTokenError;
+
+},{"./base64_url_decode":"../node_modules/jwt-decode/lib/base64_url_decode.js"}],"services/authService.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getCurrentUser = getCurrentUser;
+exports.login = login;
+exports.default = void 0;
+
+var _httpServices = _interopRequireDefault(require("./httpServices"));
+
+var _config = require("../config.json");
+
+var _jwtDecode = _interopRequireDefault(require("jwt-decode"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const apiEndPoint = _config.apiUrl + '/auth'; //const apiEndPoint = '/auth';
+
+const tokenKey = "token";
+
+function getCurrentUser() {
+  try {
+    const jwt = localStorage.getItem(tokenKey);
+    return (0, _jwtDecode.default)(jwt);
+  } catch (error) {
+    return null;
+  }
+}
+
+async function login(email, password) {
+  const {
+    data: jwt
+  } = await _httpServices.default.post(apiEndPoint, {
+    email,
+    password
+  });
+  localStorage.setItem(tokenKey, jwt);
+}
+
+function logout() {
+  localStorage.removeItem(tokenKey);
+}
+
+var _default = {
+  login,
+  logout,
+  getCurrentUser
+};
+exports.default = _default;
+},{"./httpServices":"services/httpServices.js","../config.json":"config.json","jwt-decode":"../node_modules/jwt-decode/lib/index.js"}],"components/ReportComponent.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactBootstrap = require("react-bootstrap");
+
+var _reportService = require("./../services/reportService");
+
+var _reactToastify = require("react-toastify");
+
+var _authService = require("./../services/authService");
+
+var _core = require("@emotion/core");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const ReportComponent = () => {
+  const [allExpenses, setallExpenses] = (0, _react.useState)([]);
+  const [startDateReport, setStartDateReport] = (0, _react.useState)();
+  const [endDateReport, setEndDateReport] = (0, _react.useState)();
+  const [errors, setErrors] = (0, _react.useState)();
+  const [user, setUser] = (0, _react.useState)();
+  (0, _react.useEffect)(() => {
+    const userValid = (0, _authService.getCurrentUser)();
+    setUser(userValid);
+  }, []);
+
+  const doSubmit = async () => {
+    try {
+      const result = await (0, _reportService.getExpensesForFilter)(startDateReport, endDateReport, user.email);
+      setallExpenses(result.data); //here should here all logic for this algorith
+
+      if (allExpenses.length === 0) {
+        _reactToastify.toast.warn("Sorry We can get information Between dates ");
+      } // console.log(result.data)
+
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        setErrors(error.response.data);
+
+        _reactToastify.toast.error(errors);
+      }
+    }
+  };
+
+  return (0, _core.jsx)("div", {
+    className: "Report"
+  }, (0, _core.jsx)("form", {
+    onSubmit: e => {
+      e.preventDefault();
+      doSubmit();
+    }
+  }, (0, _core.jsx)("div", {
+    className: "container"
+  }, (0, _core.jsx)(_reactBootstrap.Container, null, (0, _core.jsx)("h1", null, "Report ")), (0, _core.jsx)(_reactBootstrap.Row, null, (0, _core.jsx)(_reactBootstrap.Col, null, (0, _core.jsx)("div", {
+    className: "form-group"
+  }, (0, _core.jsx)("label", null, "Start Date"), (0, _core.jsx)("input", {
+    name: "startDate",
+    id: "startDate",
+    className: "form-control",
+    onChange: e => setStartDateReport(e.target.value),
+    type: "date"
+  }))), (0, _core.jsx)(_reactBootstrap.Col, null, (0, _core.jsx)("div", {
+    className: "form-group"
+  }, (0, _core.jsx)("label", null, "End Date"), (0, _core.jsx)("input", {
+    name: "endDate",
+    id: "endDate",
+    className: "form-control",
+    onChange: e => setEndDateReport(e.target.value),
+    type: "date"
+  }))), (0, _core.jsx)(_reactBootstrap.Col, null, (0, _core.jsx)("div", null, (0, _core.jsx)("button", {
+    className: "btn btn-lg btn-primary",
+    type: "submit"
+  }, " Accept ")))), (0, _core.jsx)(_reactBootstrap.Row, null, (0, _core.jsx)("table", {
+    className: "table"
+  }, (0, _core.jsx)("thead", null, (0, _core.jsx)("tr", null, (0, _core.jsx)("th", {
+    scope: "col"
+  }, "Date"), (0, _core.jsx)("th", {
+    scope: "col"
+  }, "Categorie"), (0, _core.jsx)("th", {
+    scope: "col"
+  }, "Total"), (0, _core.jsx)("th", {
+    scope: "col"
+  }, "Comment"))), (0, _core.jsx)("tbody", null, allExpenses.map(item => (0, _core.jsx)("tr", {
+    key: item._id,
+    scope: "row"
+  }, (0, _core.jsx)("td", null, new Date(item.date).toLocaleDateString()), (0, _core.jsx)("td", null, item.categorie.name), (0, _core.jsx)("td", null, " ", item.total), (0, _core.jsx)("td", null, " ", item.comments)))))))));
+};
+
+var _default = ReportComponent;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./../services/reportService":"services/reportService.js","react-toastify":"../node_modules/react-toastify/esm/react-toastify.js","./../services/authService":"services/authService.js","@emotion/core":"../node_modules/@emotion/core/dist/core.browser.esm.js"}],"components/common/select.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _core = require("@emotion/core");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+const Select = ({
+  name,
+  label,
+  options,
+  ...rest
+}) => {
+  return (0, _core.jsx)("div", {
+    className: "form-group"
+  }, (0, _core.jsx)("label", {
+    htmlFor: name
+  }, label), (0, _core.jsx)("select", _extends({
+    name: name,
+    id: name
+  }, rest, {
+    className: "form-control"
+  }), (0, _core.jsx)("option", {
+    value: ""
+  }), options.map(option => (0, _core.jsx)("option", {
+    key: option._id,
+    value: option._id
+  }, option.name))));
+};
+
+var _default = Select;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","@emotion/core":"../node_modules/@emotion/core/dist/core.browser.esm.js"}],"components/NewExpenseComponent.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactBootstrap = require("react-bootstrap");
+
+var _categorieService = require("../services/categorieService");
+
+var _ExpensesServices = require("../services/ExpensesServices");
+
+var _useDropDown = _interopRequireDefault(require("./common/useDropDown"));
+
+var _useButton = _interopRequireDefault(require("./common/useButton"));
+
+var _Input = _interopRequireDefault(require("./common/Input"));
+
+var _ReportComponent = _interopRequireDefault(require("./ReportComponent"));
+
+var _reactToastify = require("react-toastify");
+
+var _select = _interopRequireDefault(require("./common/select"));
+
+var _core = require("@emotion/core");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const NewExpenseComponent = ({
+  user
+}) => {
+  const [categories, setCategories] = (0, _react.useState)([]); //const [categories, CategoriasDropDown] = useDropdown("categories", "All", allCategories)
+
+  const [buttonSave, SaveButton] = (0, _useButton.default)("Save", "", "subtmit");
+  const [date, setDate] = (0, _react.useState)();
+  const [total, setTotal] = (0, _react.useState)(0);
+  const [comment, setComment] = (0, _react.useState)("");
+  const [errors, setErrors] = (0, _react.useState)();
+  /*  const [{ data, loading, error }, refetch] = useAxios(
+        setallCategories
+        getUrlAllCategories()
+     );*/
+
+  const allData = () => {
+    const res = (0, _categorieService.getAllCategories)();
+    setCategories(res.data);
+    console.log(setCategories, categories);
+  };
+
+  (0, _react.useEffect)(() => {
+    allData();
+  }, [categories]);
+
+  const doSubmit = async () => {
+    const expense = {
+      "date": date,
+      "categorieId": categories,
+      "total": total,
+      "comments": comment,
+      "email": user.email
+    };
+
+    try {
+      await (0, _ExpensesServices.saveExpense)(expense);
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        setErrors(error.response.data);
+
+        _reactToastify.toast.error(errors);
+      }
+    }
+  };
+
+  return (0, _core.jsx)(_reactBootstrap.Container, null, (0, _core.jsx)(_reactBootstrap.Row, null, (0, _core.jsx)(_reactBootstrap.Col, null, (0, _core.jsx)("form", {
+    className: "form",
+    onSubmit: e => {
+      e.preventDefault();
+      doSubmit();
+    }
+  }, (0, _core.jsx)("div", {
+    className: "form-group"
+  }, (0, _core.jsx)("label", null, "Start Date"), (0, _core.jsx)("input", {
+    name: "date",
+    id: "date",
+    className: "form-control",
+    onChange: e => setDate(e.target.value),
+    type: "date"
+  })), (0, _core.jsx)(_Input.default, {
+    name: "Expense Monto  ",
+    id: "expense",
+    value: total,
+    className: "form-control",
+    onChange: e => setTotal(e.target.value)
+  }), (0, _core.jsx)(_Input.default, {
+    name: "comment",
+    id: "comment",
+    value: comment,
+    className: "form-control",
+    type: "text",
+    onChange: e => setComment(e.target.value)
+  }), (0, _core.jsx)(_select.default, {
+    name: "test",
+    label: "categories",
+    options: categories,
+    onChange: e => setCategories(e.target.value) //error={errors[name]}
+
+  }), (0, _core.jsx)(SaveButton, null))), (0, _core.jsx)(_reactBootstrap.Col, null, (0, _core.jsx)("div", {
+    className: "Carousel"
+  }, (0, _core.jsx)(_ReportComponent.default, {
+    user: user
+  })))));
+};
+
+function useFormInput(initialState) {
+  const [value, setValue] = (0, _react.useState)(initialState);
+
+  const handleChange = e => {
+    setValue(e.target.value);
+  };
+
+  return {
+    value,
+    onChange: handleChange
+  };
+}
+
+var _default = NewExpenseComponent;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","../services/categorieService":"services/categorieService.js","../services/ExpensesServices":"services/ExpensesServices.js","./common/useDropDown":"components/common/useDropDown.js","./common/useButton":"components/common/useButton.js","./common/Input":"components/common/Input.js","./ReportComponent":"components/ReportComponent.js","react-toastify":"../node_modules/react-toastify/esm/react-toastify.js","./common/select":"components/common/select.js","@emotion/core":"../node_modules/@emotion/core/dist/core.browser.esm.js"}],"components/LogoutComponent.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _authService = _interopRequireDefault(require("../services/authService"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const LogoutComponent = () => {
+  (0, _react.useEffect)(() => {
+    _authService.default.logout();
+
+    window.location = "/";
+  }, []);
+  return null;
+};
+
+var _default = LogoutComponent;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","../services/authService":"services/authService.js"}],"components/common/barSocialNetwork.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _core = require("@emotion/core");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const BarSocialNetWork = () => {
+  return (0, _core.jsx)("div", null, (0, _core.jsx)("footer", {
+    className: "footer"
+  }, (0, _core.jsx)("div", {
+    className: "icon-bar"
+  }, (0, _core.jsx)("a", {
+    href: "#",
+    className: "facebook"
+  }, (0, _core.jsx)("i", {
+    className: "fa fa-facebook"
+  })), (0, _core.jsx)("a", {
+    href: "#",
+    className: "twitter"
+  }, (0, _core.jsx)("i", {
+    className: "fa fa-twitter"
+  })), (0, _core.jsx)("a", {
+    href: "#",
+    className: "linkedin"
+  }, (0, _core.jsx)("i", {
+    className: "fa fa-linkedin"
+  })))));
+};
+
+var _default = BarSocialNetWork;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","@emotion/core":"../node_modules/@emotion/core/dist/core.browser.esm.js"}],"components/common/footer.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _core = require("@emotion/core");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const Footer = () => {
+  return (0, _core.jsx)("footer", {
+    className: "mainfooter",
+    role: "contentinfo"
+  }, (0, _core.jsx)("div", {
+    className: "footer-middle"
+  }, (0, _core.jsx)("div", {
+    className: "container"
+  }, (0, _core.jsx)("div", {
+    className: "row"
+  }, (0, _core.jsx)("div", {
+    className: "col-md-3 col-sm-6"
+  }, (0, _core.jsx)("div", {
+    className: "footer-pad"
+  }, (0, _core.jsx)("h4", null, "Information in Ours Company"), (0, _core.jsx)("ul", {
+    className: "list-unstyled"
+  }, (0, _core.jsx)("li", null, (0, _core.jsx)("a", {
+    href: "#"
+  })), (0, _core.jsx)("li", null, (0, _core.jsx)("a", {
+    href: "#"
+  }, "Payment Information  Center")), (0, _core.jsx)("li", null, (0, _core.jsx)("a", {
+    href: "#"
+  }, "Contact Directory")), (0, _core.jsx)("li", null, (0, _core.jsx)("a", {
+    href: "#"
+  }, "News and Updates")), (0, _core.jsx)("li", null, (0, _core.jsx)("a", {
+    href: "#"
+  }, "FAQs"))))), (0, _core.jsx)("div", {
+    className: "col-md-3 col-sm-6"
+  }, (0, _core.jsx)("div", {
+    className: "footer-pad"
+  }, (0, _core.jsx)("h4", null, "Codes"), (0, _core.jsx)("ul", {
+    className: "list-unstyled"
+  }, (0, _core.jsx)("li", null, (0, _core.jsx)("a", {
+    href: "#"
+  }, "Tutorial")), (0, _core.jsx)("li", null, (0, _core.jsx)("a", {
+    href: "#"
+  }, "Youtube Training ")), (0, _core.jsx)("li", null, (0, _core.jsx)("a", {
+    href: "#"
+  }, "Email")), (0, _core.jsx)("li", null, (0, _core.jsx)("a", {
+    href: "#"
+  }, "Privacy Policy")), (0, _core.jsx)("li", null, (0, _core.jsx)("a", {
+    href: "#"
+  }, "FAQs")), (0, _core.jsx)("li", null, (0, _core.jsx)("a", {
+    href: "#"
+  }, "Webmaster"))))), (0, _core.jsx)("div", {
+    className: "col-md-3"
+  }, (0, _core.jsx)("h4", null, "Follow Us"), (0, _core.jsx)("ul", {
+    className: "social-network social-circle"
+  }, (0, _core.jsx)("li", null, (0, _core.jsx)("a", {
+    href: "#",
+    className: "icoFacebook",
+    title: "Facebook"
+  }, (0, _core.jsx)("i", {
+    className: "fa fa-facebook"
+  }))), (0, _core.jsx)("li", null, (0, _core.jsx)("a", {
+    href: "#",
+    className: "icoLinkedin",
+    title: "Linkedin"
+  }, (0, _core.jsx)("i", {
+    className: "fa fa-linkedin"
+  })))))), (0, _core.jsx)("div", {
+    className: "row"
+  }, (0, _core.jsx)("div", {
+    className: "col-md-12 copy"
+  }, (0, _core.jsx)("p", {
+    className: "text-center"
+  }, "\xA9 Copyright 2020 - Company DaYaSa .  All rights reserved."))))));
+};
+
+var _default = Footer;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","@emotion/core":"../node_modules/@emotion/core/dist/core.browser.esm.js"}],"components/common/useInput.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _core = require("@emotion/core");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const useInput = (label, defaultState, type) => {
+  const [state, setState] = (0, _react.useState)(defaultState);
+  const id = `use-input-${label.replace(" ", "").toLowerCase()}`;
+
+  const Input = () => (0, _core.jsx)("div", {
+    className: "form-group"
+  }, (0, _core.jsx)("label", {
+    htmlFor: id
+  }, label, (0, _core.jsx)("input", {
+    id: id,
+    value: state,
+    onChange: e => setState(e.target.value),
+    onBlur: e => setState(e.target.value),
+    className: "form-control",
+    type: type
+  })));
+
+  return [state, Input, setState];
+};
+
+var _default = useInput;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","@emotion/core":"../node_modules/@emotion/core/dist/core.browser.esm.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -57585,7 +57603,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63347" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54054" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

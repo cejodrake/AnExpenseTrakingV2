@@ -1,32 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, } from 'react-bootstrap';
+import { getExpensesForFilter } from './../services/reportService';
 
-import useButton from './common/useButton';
-import { getExpensesForFilter } from './../services/ExpensesServices';
+import { toast } from 'react-toastify';
+import { getCurrentUser } from './../services/authService';
 
-const ReportComponent = ({ user }) => {
-    const [startDateReport, setStartDateReport] = useState(Date.now());
-    const [endDateReport, setEndDateReport] = useState(Date.now());
-    const [expenses, setExpenses] = useState();
-    const [buttonFilter, ButtonFilterData] = useButton("Filter", "", "submit");
 
-    const getExpenseForDate = async () => {
-        const result = getExpensesForFilter(startDateReport, endDateReport);
-        setExpenses(result.data);
-    }
+const ReportComponent = () => {
+    const [allExpenses, setallExpenses] = useState([]);
+    const [startDateReport, setStartDateReport] = useState();
+    const [endDateReport, setEndDateReport] = useState();
+    const [errors, setErrors] = useState();
+    const [user, setUser] = useState();
+
+
+    useEffect(() => {
+        const userValid = getCurrentUser();
+        setUser(userValid);
+
+    }, []);
 
     const doSubmit = async () => {
-        console.log("funtionando ")
 
         try {
-            const result = await getExpenseForDate();
-            console.log(result);
+            const result = await getExpensesForFilter(startDateReport, endDateReport, user.email);
+
+            setallExpenses(result.data);
+            //here should here all logic for this algorith
+            if (allExpenses.length === 0) {
+                toast.warn("Sorry We can get information Between dates ");
+            }
+            // console.log(result.data)
+
+
 
         } catch (error) {
             if (error.response && error.response.status === 400) {
+                setErrors(error.response.data);
+                toast.error(errors);
             }
         }
-
     }
 
     return (
@@ -37,6 +50,9 @@ const ReportComponent = ({ user }) => {
                 doSubmit();
             }}>
                 <div className="container">
+                    <Container>
+                        <h1>Report </h1>
+                    </Container>
                     <Row>
                         <Col>
                             <div className="form-group" >
@@ -44,6 +60,7 @@ const ReportComponent = ({ user }) => {
                                 <input
                                     name="startDate"
                                     id="startDate"
+
                                     className="form-control"
                                     onChange={e => setStartDateReport(e.target.value)}
                                     type="date"
@@ -57,6 +74,7 @@ const ReportComponent = ({ user }) => {
                                 <input
                                     name="endDate"
                                     id="endDate"
+
                                     className="form-control"
                                     onChange={e => setEndDateReport(e.target.value)}
                                     type="date"
@@ -65,9 +83,8 @@ const ReportComponent = ({ user }) => {
                             </div>
                         </Col>
                         <Col>
-                            <div>
-
-                                <button className="btn btn-primary" type="submit"> Save </button>
+                            <div >
+                                <button className="btn btn-lg btn-primary" type="submit"> Accept </button>
                             </div>
 
                         </Col>
@@ -87,15 +104,15 @@ const ReportComponent = ({ user }) => {
 
                             <tbody>
                                 {
-                                    /*  expenses.map(item => (
-                                          <tr key={item._id} scope="row">
-                                              <td>{new Date(item.date).toLocaleDateString()}</td>
-                                              <td>{item.categorie.name}</td>
-                                              <td> {item.total}</td>
-                                              <td> {item.comments}</td>
-  
-                                          </tr>
-                                      ))*/
+                                    allExpenses.map(item => (
+                                        <tr key={item._id} scope="row">
+                                            <td>{new Date(item.date).toLocaleDateString()}</td>
+                                            <td>{item.categorie.name}</td>
+                                            <td> {item.total}</td>
+                                            <td> {item.comments}</td>
+
+                                        </tr>
+                                    ))
                                 }
 
                             </tbody >
@@ -112,4 +129,4 @@ const ReportComponent = ({ user }) => {
     )
 }
 
-export default ReportComponent
+export default ReportComponent;

@@ -7,28 +7,22 @@ const useDropdown = (label, defaultState, options) => {
     const id = `use-dropdown-${label.replace(" ", "").toLowerCase()}`;
 
     const Dropdown = () => (
+        <label htmlFor={id}>
+            <select
+                id={id}
+                value={state}
+                onChange={e => setState(e.target.value)}
+                onBlur={e => setState(e.target.value)}
+            // disabled={options.length === 0}
+            >
+                <option>All</option>
+                {options.map(item => (
+                    <option key={item._id} value={item._id}>{item.name}</option>
+                ))}
 
-        <div className="form-group">
-            <label htmlFor={id}>
-                {label}
-                <select
-                    id={id}
-                    value={state}
-                    onChange={e => setState(e.target.value)}
-                    onBlur={e => setState(e.target.value)}
-                    disabled={options.length === 0}
-                    className="form-control"
-                >
-                    <option>All</option>
-                    {options.map(item => (
-                        <option key={item._id} value={item._id}>{item.name}</option>
-                    ))}
+            </select>
 
-
-                </select>
-            </label>
-        </div>
-
+        </label>
     )
 
     return ([state, Dropdown, setState]);

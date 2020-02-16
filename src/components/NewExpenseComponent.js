@@ -1,55 +1,58 @@
 import React, { useState, useEffect } from "react"
 import { Container, Row, Col, } from 'react-bootstrap';
 
-import { getAllCategories, getUrlAllCategories } from '../services/categorieService';
-import { getAllExpenses, saveExpense } from '../services/ExpensesServices';
-import CaruselExpense from './common/caruselExpense';
+import { getAllCategories } from '../services/categorieService';
+import { saveExpense } from '../services/ExpensesServices';
 
 import useDropdown from './common/useDropDown';
-import useInput from './common/useInput';
+
 import useButton from './common/useButton';
 import Input from './common/Input';
 import ReportComponent from "./ReportComponent";
+import { toast } from 'react-toastify';
+import Select from './common/select';
 
 
 
 const NewExpenseComponent = ({ user }) => {
 
-    const [allCategories, setallCategories] = useState([]);
-    const [startDate, StarDatetInput] = useInput("Date", Date.now().toLocaleString(), "date");
+    const [categories, setCategories] = useState([])
+    //const [categories, CategoriasDropDown] = useDropdown("categories", "All", allCategories)
+    const [buttonSave, SaveButton] = useButton("Save", "", "subtmit")
+    const [date, setDate] = useState()
     const [total, setTotal] = useState(0);
     const [comment, setComment] = useState("");
-    const [buttonSave, SaveButton] = useButton("Save", "")
-    const [categories, CategoriasDropDown] = useDropdown("Categories", "Baliadas", allCategories)
-    const [allExpenses, setAllExpense] = useState([]);
-
-    const [startDateReport, StarDateReporttInput] = useInput("Date Start", Date.now().toLocaleString(), "date");
-    const [EndDateReport, EndDatetReportInput] = useInput("Date End", Date.now().toLocaleString(), "date");
-
-    /* const [{ data, loading, error }, refetch] = useAxios(
-         getUrlAllCategories()
-     );*/
 
 
+    const [errors, setErrors] = useState();
 
 
-    const allData = async () => {
-        const res = await getAllCategories();
-        setallCategories(res.data)
+    /*  const [{ data, loading, error }, refetch] = useAxios(
+          setallCategories
+          getUrlAllCategories()
+       );*/
+
+
+    const allData = () => {
+        const res = getAllCategories();
+        setCategories(res.data)
+        console.log(setCategories, categories)
     };
 
-
+    useEffect(() => {
+        allData();
+    }, [categories])
 
     const doSubmit = async () => {
+
         const expense = {
-            "date": startDate,
+            "date": date,
             "categorieId": categories,
             "total": total,
             "comments": comment,
             "email": user.email
         };
 
-        console.log(details);
 
         try {
             await saveExpense(expense);
@@ -57,15 +60,14 @@ const NewExpenseComponent = ({ user }) => {
         } catch (error) {
             if (error.response && error.response.status === 400) {
 
-                console.log(error)
+                setErrors(error.response.data);
+                toast.error(errors);
             }
         }
 
     }
 
-    useEffect(() => {
-        allData();
-    }, [])
+
 
 
     return (
@@ -76,8 +78,17 @@ const NewExpenseComponent = ({ user }) => {
                         e.preventDefault()
                         doSubmit();
                     }}>
-                        <StarDatetInput />
+                        <div className="form-group" >
+                            <label>Start Date</label>
+                            <input
+                                name="date"
+                                id="date"
 
+                                className="form-control"
+                                onChange={e => setDate(e.target.value)}
+                                type="date"
+                            />
+                        </div>
                         <Input
                             name="Expense Monto  "
                             id="expense"
@@ -93,7 +104,14 @@ const NewExpenseComponent = ({ user }) => {
                             type="text"
                             onChange={e => setComment(e.target.value)}
                         />
-                        <CategoriasDropDown />
+                        <Select
+                            name="test"
+                            label="categories"
+                            options={categories}
+                            onChange={e => setCategories(e.target.value)}
+                        //error={errors[name]}
+                        />
+
                         <SaveButton />
 
                     </form>
@@ -102,7 +120,8 @@ const NewExpenseComponent = ({ user }) => {
                 <Col >
 
                     <div className="Carousel">
-                        <ReportComponent />
+
+                        <ReportComponent user={user} />
 
                     </div>
 
