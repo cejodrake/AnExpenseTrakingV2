@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import NavBar from './components/common/navBar';
 import ReactDOM from "react-dom";
@@ -19,10 +19,12 @@ import { ToastContainer } from 'react-toastify';
 import { getCurrentUser } from './services/authService';
 
 
+import UserContext from './components/context/userContext';
 
 const App = () => {
 
     const [user, setUser] = useState();
+
 
     const getInformationUser = async () => {
         const result = await getCurrentUser();
@@ -36,22 +38,22 @@ const App = () => {
     return (
 
         <React.Fragment>
-
-            <ToastContainer />
-            <NavBar user={user} />
-            <main className="container">
-                <Switch>
-                    <Route path="/login" component={LoginComponent} />
-                    <Route path="/NewExpense" component={NewExpenseComponent} />
-                    <Route path="/logout" component={LogoutComponent} />
-                    <Route path="/register" component={RegisterComponent} />
-                    <Redirect from="/" exact to="/login" />
-                </Switch>
-            </main>
-            <BarSocialNetWork />
-            <Footer />
-
-        </React.Fragment>
+            <UserContext.Provider value={user}>
+                <ToastContainer />
+                <NavBar />
+                <main className="container">
+                    <Switch>
+                        <Route path="/login" component={LoginComponent} />
+                        <Route path="/NewExpense" render={(props) => <NewExpenseComponent {...props} user={user} />} />
+                        <Route path="/logout" component={LogoutComponent} />
+                        <Route path="/register" component={RegisterComponent} />
+                        <Redirect from="/" exact to="/login" />
+                    </Switch>
+                </main>
+                <BarSocialNetWork />
+                <Footer />
+            </UserContext.Provider>
+        </React.Fragment >
 
     )
 };

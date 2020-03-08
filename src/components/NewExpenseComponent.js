@@ -4,8 +4,6 @@ import { Container, Row, Col, } from 'react-bootstrap';
 import { getAllCategories } from '../services/categorieService';
 import { saveExpense } from '../services/ExpensesServices';
 
-import useDropdown from './common/useDropDown';
-
 import useButton from './common/useButton';
 import Input from './common/Input';
 import ReportComponent from "./ReportComponent";
@@ -17,8 +15,8 @@ import Select from './common/select';
 const NewExpenseComponent = ({ user }) => {
 
     const [categories, setCategories] = useState([])
-    //const [categories, CategoriasDropDown] = useDropdown("categories", "All", allCategories)
-    const [buttonSave, SaveButton] = useButton("Save", "", "subtmit")
+
+    const [buttonSave, SaveButton] = useButton("Save", "", "submit")
     const [date, setDate] = useState()
     const [total, setTotal] = useState(0);
     const [comment, setComment] = useState("");
@@ -27,21 +25,17 @@ const NewExpenseComponent = ({ user }) => {
     const [errors, setErrors] = useState();
 
 
-    /*  const [{ data, loading, error }, refetch] = useAxios(
-          setallCategories
-          getUrlAllCategories()
-       );*/
-
-
-    const allData = () => {
-        const res = getAllCategories();
+    const allData = async () => {
+        const res = await getAllCategories();
         setCategories(res.data)
-        console.log(setCategories, categories)
+
     };
 
     useEffect(() => {
         allData();
-    }, [categories])
+        console.log(user)
+
+    }, [])
 
     const doSubmit = async () => {
 
@@ -52,8 +46,7 @@ const NewExpenseComponent = ({ user }) => {
             "comments": comment,
             "email": user.email
         };
-
-
+        console.log("butunn pressed")
         try {
             await saveExpense(expense);
 
@@ -66,10 +59,6 @@ const NewExpenseComponent = ({ user }) => {
         }
 
     }
-
-
-
-
     return (
         <Container>
             <Row>
@@ -105,14 +94,15 @@ const NewExpenseComponent = ({ user }) => {
                             onChange={e => setComment(e.target.value)}
                         />
                         <Select
-                            name="test"
+                            name="categories"
                             label="categories"
                             options={categories}
-                            onChange={e => setCategories(e.target.value)}
-                        //error={errors[name]}
+
                         />
 
-                        <SaveButton />
+                        <button className="btn btn-primary btn-lg" type="submit">
+                            save
+                       </button>
 
                     </form>
                 </Col>

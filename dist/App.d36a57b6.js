@@ -8527,7 +8527,7 @@ const MyBugetComponent = () => {
 
 var _default = MyBugetComponent;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","@emotion/core":"../node_modules/@emotion/core/dist/core.browser.esm.js"}],"components/common/navBar.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","@emotion/core":"../node_modules/@emotion/core/dist/core.browser.esm.js"}],"components/context/userContext.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -8537,17 +8537,38 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const UserContext = _react.default.createContext();
+
+var _default = UserContext;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"components/common/navBar.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
 var _reactRouterDom = require("react-router-dom");
 
 var _bugetComponent = _interopRequireDefault(require("./bugetComponent"));
+
+var _userContext = _interopRequireDefault(require("./../context/userContext"));
 
 var _core = require("@emotion/core");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const NavBar = ({
-  user
-}) => {
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const NavBar = () => {
+  const user = (0, _react.useContext)(_userContext.default);
   return (0, _core.jsx)("nav", {
     className: "navbar navbar-expand-lg navbar-light bg-light"
   }, (0, _core.jsx)("a", {
@@ -8586,7 +8607,7 @@ const NavBar = ({
 
 var _default = NavBar;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./bugetComponent":"components/common/bugetComponent.js","@emotion/core":"../node_modules/@emotion/core/dist/core.browser.esm.js"}],"../node_modules/scheduler/cjs/scheduler.development.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./bugetComponent":"components/common/bugetComponent.js","./../context/userContext":"components/context/userContext.js","@emotion/core":"../node_modules/@emotion/core/dist/core.browser.esm.js"}],"../node_modules/scheduler/cjs/scheduler.development.js":[function(require,module,exports) {
 /** @license React v0.18.0
  * scheduler.development.js
  *
@@ -53882,45 +53903,7 @@ function saveExpense(expense) {
 }
 
 ;
-},{"./httpServices":"services/httpServices.js"}],"components/common/useDropDown.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _core = require("@emotion/core");
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-const useDropdown = (label, defaultState, options) => {
-  const [state, setState] = (0, _react.useState)(defaultState);
-  const id = `use-dropdown-${label.replace(" ", "").toLowerCase()}`;
-
-  const Dropdown = () => (0, _core.jsx)("label", {
-    htmlFor: id
-  }, (0, _core.jsx)("select", {
-    id: id,
-    value: state,
-    onChange: e => setState(e.target.value),
-    onBlur: e => setState(e.target.value) // disabled={options.length === 0}
-
-  }, (0, _core.jsx)("option", null, "All"), options.map(item => (0, _core.jsx)("option", {
-    key: item._id,
-    value: item._id
-  }, item.name))));
-
-  return [state, Dropdown, setState];
-};
-
-var _default = useDropdown;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","@emotion/core":"../node_modules/@emotion/core/dist/core.browser.esm.js"}],"components/common/useButton.js":[function(require,module,exports) {
+},{"./httpServices":"services/httpServices.js"}],"components/common/useButton.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -56794,8 +56777,6 @@ var _categorieService = require("../services/categorieService");
 
 var _ExpensesServices = require("../services/ExpensesServices");
 
-var _useDropDown = _interopRequireDefault(require("./common/useDropDown"));
-
 var _useButton = _interopRequireDefault(require("./common/useButton"));
 
 var _Input = _interopRequireDefault(require("./common/Input"));
@@ -56817,27 +56798,22 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 const NewExpenseComponent = ({
   user
 }) => {
-  const [categories, setCategories] = (0, _react.useState)([]); //const [categories, CategoriasDropDown] = useDropdown("categories", "All", allCategories)
-
-  const [buttonSave, SaveButton] = (0, _useButton.default)("Save", "", "subtmit");
+  const [categories, setCategories] = (0, _react.useState)([]);
+  const [buttonSave, SaveButton] = (0, _useButton.default)("Save", "", "submit");
   const [date, setDate] = (0, _react.useState)();
   const [total, setTotal] = (0, _react.useState)(0);
   const [comment, setComment] = (0, _react.useState)("");
   const [errors, setErrors] = (0, _react.useState)();
-  /*  const [{ data, loading, error }, refetch] = useAxios(
-        setallCategories
-        getUrlAllCategories()
-     );*/
 
-  const allData = () => {
-    const res = (0, _categorieService.getAllCategories)();
+  const allData = async () => {
+    const res = await (0, _categorieService.getAllCategories)();
     setCategories(res.data);
-    console.log(setCategories, categories);
   };
 
   (0, _react.useEffect)(() => {
     allData();
-  }, [categories]);
+    console.log(user);
+  }, []);
 
   const doSubmit = async () => {
     const expense = {
@@ -56847,6 +56823,7 @@ const NewExpenseComponent = ({
       "comments": comment,
       "email": user.email
     };
+    console.log("butunn pressed");
 
     try {
       await (0, _ExpensesServices.saveExpense)(expense);
@@ -56887,12 +56864,13 @@ const NewExpenseComponent = ({
     type: "text",
     onChange: e => setComment(e.target.value)
   }), (0, _core.jsx)(_select.default, {
-    name: "test",
+    name: "categories",
     label: "categories",
-    options: categories,
-    onChange: e => setCategories(e.target.value) //error={errors[name]}
-
-  }), (0, _core.jsx)(SaveButton, null))), (0, _core.jsx)(_reactBootstrap.Col, null, (0, _core.jsx)("div", {
+    options: categories
+  }), (0, _core.jsx)("button", {
+    className: "btn btn-primary btn-lg",
+    type: "submit"
+  }, "save"))), (0, _core.jsx)(_reactBootstrap.Col, null, (0, _core.jsx)("div", {
     className: "Carousel"
   }, (0, _core.jsx)(_ReportComponent.default, {
     user: user
@@ -56914,7 +56892,7 @@ function useFormInput(initialState) {
 
 var _default = NewExpenseComponent;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","../services/categorieService":"services/categorieService.js","../services/ExpensesServices":"services/ExpensesServices.js","./common/useDropDown":"components/common/useDropDown.js","./common/useButton":"components/common/useButton.js","./common/Input":"components/common/Input.js","./ReportComponent":"components/ReportComponent.js","react-toastify":"../node_modules/react-toastify/esm/react-toastify.js","./common/select":"components/common/select.js","@emotion/core":"../node_modules/@emotion/core/dist/core.browser.esm.js"}],"components/LogoutComponent.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","../services/categorieService":"services/categorieService.js","../services/ExpensesServices":"services/ExpensesServices.js","./common/useButton":"components/common/useButton.js","./common/Input":"components/common/Input.js","./ReportComponent":"components/ReportComponent.js","react-toastify":"../node_modules/react-toastify/esm/react-toastify.js","./common/select":"components/common/select.js","@emotion/core":"../node_modules/@emotion/core/dist/core.browser.esm.js"}],"components/LogoutComponent.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -57532,6 +57510,8 @@ var _reactToastify = require("react-toastify");
 
 var _authService = require("./services/authService");
 
+var _userContext = _interopRequireDefault(require("./components/context/userContext"));
+
 var _core = require("@emotion/core");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -57539,6 +57519,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 const App = () => {
   const [user, setUser] = (0, _react.useState)();
@@ -57551,16 +57533,18 @@ const App = () => {
   (0, _react.useEffect)(() => {
     getInformationUser();
   });
-  return (0, _core.jsx)(_react.default.Fragment, null, (0, _core.jsx)(_reactToastify.ToastContainer, null), (0, _core.jsx)(_navBar.default, {
-    user: user
-  }), (0, _core.jsx)("main", {
+  return (0, _core.jsx)(_react.default.Fragment, null, (0, _core.jsx)(_userContext.default.Provider, {
+    value: user
+  }, (0, _core.jsx)(_reactToastify.ToastContainer, null), (0, _core.jsx)(_navBar.default, null), (0, _core.jsx)("main", {
     className: "container"
   }, (0, _core.jsx)(_reactRouterDom.Switch, null, (0, _core.jsx)(_reactRouterDom.Route, {
     path: "/login",
     component: _LoginComponent.default
   }), (0, _core.jsx)(_reactRouterDom.Route, {
     path: "/NewExpense",
-    component: _NewExpenseComponent.default
+    render: props => (0, _core.jsx)(_NewExpenseComponent.default, _extends({}, props, {
+      user: user
+    }))
   }), (0, _core.jsx)(_reactRouterDom.Route, {
     path: "/logout",
     component: _LogoutComponent.default
@@ -57571,11 +57555,11 @@ const App = () => {
     from: "/",
     exact: true,
     to: "/login"
-  }))), (0, _core.jsx)(_barSocialNetwork.default, null), (0, _core.jsx)(_footer.default, null));
+  }))), (0, _core.jsx)(_barSocialNetwork.default, null), (0, _core.jsx)(_footer.default, null)));
 };
 
 _reactDom.default.render((0, _core.jsx)(_reactRouterDom.BrowserRouter, null, (0, _core.jsx)(App, null)), document.getElementById('root'));
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./components/common/navBar":"components/common/navBar.js","react-dom":"../node_modules/react-dom/index.js","./components/NewExpenseComponent":"components/NewExpenseComponent.js","./components/LogoutComponent":"components/LogoutComponent.js","./components/common/barSocialNetwork":"components/common/barSocialNetwork.js","./components/common/footer":"components/common/footer.js","./components/LoginComponent":"components/LoginComponent.js","./components/RegisterComponent":"components/RegisterComponent.js","bootstrap/dist/css/bootstrap.css":"../node_modules/bootstrap/dist/css/bootstrap.css","font-awesome/css/font-awesome.css":"../node_modules/font-awesome/css/font-awesome.css","bootstrap/dist/css/bootstrap.min.css":"../node_modules/bootstrap/dist/css/bootstrap.min.css","react-toastify/dist/ReactToastify.css":"../node_modules/react-toastify/dist/ReactToastify.css","react-toastify":"../node_modules/react-toastify/esm/react-toastify.js","./services/authService":"services/authService.js","@emotion/core":"../node_modules/@emotion/core/dist/core.browser.esm.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./components/common/navBar":"components/common/navBar.js","react-dom":"../node_modules/react-dom/index.js","./components/NewExpenseComponent":"components/NewExpenseComponent.js","./components/LogoutComponent":"components/LogoutComponent.js","./components/common/barSocialNetwork":"components/common/barSocialNetwork.js","./components/common/footer":"components/common/footer.js","./components/LoginComponent":"components/LoginComponent.js","./components/RegisterComponent":"components/RegisterComponent.js","bootstrap/dist/css/bootstrap.css":"../node_modules/bootstrap/dist/css/bootstrap.css","font-awesome/css/font-awesome.css":"../node_modules/font-awesome/css/font-awesome.css","bootstrap/dist/css/bootstrap.min.css":"../node_modules/bootstrap/dist/css/bootstrap.min.css","react-toastify/dist/ReactToastify.css":"../node_modules/react-toastify/dist/ReactToastify.css","react-toastify":"../node_modules/react-toastify/esm/react-toastify.js","./services/authService":"services/authService.js","./components/context/userContext":"components/context/userContext.js","@emotion/core":"../node_modules/@emotion/core/dist/core.browser.esm.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -57603,7 +57587,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54054" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56013" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
